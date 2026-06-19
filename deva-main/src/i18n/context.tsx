@@ -62,7 +62,7 @@ export const getLocalizedSections = (lang: Language) => {
 
 const dictionaries: Record<Language, Translations> = {
   en: {
-    app_title: "Trader Psychology Intelligence & Coach",
+    app_title: "Negadras Group 6 Members",
     welcome_text: "Identify, measure, and improve psychological weaknesses affecting your trading performance.",
     start_setup: "Start Profile Setup",
     profile_setup: "User Profile Setup",
@@ -127,7 +127,7 @@ const dictionaries: Record<Language, Translations> = {
     option_advanced: "Advanced (>3 years)"
   },
   am: {
-    app_title: "የትሬዲንግ ሳይኮሎጂ እና አሰልጣኝ",
+    app_title: "Negadras Group 6 Members",
     welcome_text: "በትሬዲንግ ላይ ተጽእኖ የሚያሳድሩ የስነ-ልቦና ድክመቶችን ይለዩ፣ ይለኩ እና ያሻሽሉ።",
     start_setup: "ፕሮፋይል ጀምር",
     profile_setup: "የተጠቃሚ ፕሮፋይል",
@@ -192,7 +192,7 @@ const dictionaries: Record<Language, Translations> = {
     option_advanced: "የላቀ (>3 አመት)"
   },
   om: {
-    app_title: "Barnoota Xiinsammuu Trading",
+    app_title: "Negadras Group 6 Members",
     welcome_text: "Dadhabina xiinsammuu trading kee irratti dhiibbaa uumu adda baasi, safari, fi fooyyessi.",
     start_setup: "Profile Jalqabi",
     profile_setup: "Profile Fayyadamaa",
@@ -257,7 +257,7 @@ const dictionaries: Record<Language, Translations> = {
     option_advanced: "Sadarkaa Olaanaa (>3 waggaa)"
   },
   ti: {
-    app_title: "ናይ ትሬዲንግ ስነ-አእምሮን ኣሰልጣኒን",
+    app_title: "Negadras Group 6 Members",
     welcome_text: "ኣብ ትሬዲንግካ ጽልዋ ዝገብሩ ናይ ስነ-አእምሮ ድኻማት ኣለሊ፣ መዝን፣ ከምኡ’ውን ኣመሓይሽ።",
     start_setup: "ፕሮፋይል ጀምር",
     profile_setup: "ፕሮፋይል ተጠቃሚ",
@@ -322,7 +322,7 @@ const dictionaries: Record<Language, Translations> = {
     option_advanced: "ዝለዓለ (>3 ዓመት)"
   },
   so: {
-    app_title: "Tababaraha Cilmi-nafsiga Trading-ka",
+    app_title: "Negadras Group 6 Members",
     welcome_text: "Aqoonso, cabbir, oo horumari daciifnimada cilmi-nafsiga ee saameeya waxqabadkaaga trading-ka.",
     start_setup: "Bilaaw Profile-ka",
     profile_setup: "Dejinta Profile-ka Isticmaalaha",
@@ -387,7 +387,7 @@ const dictionaries: Record<Language, Translations> = {
     option_advanced: "Horumarsan (>3 sano)"
   },
   aa: {
-    app_title: "Trading Macaashka & Tababaraha",
+    app_title: "Negadras Group 6 Members",
     welcome_text: "Baraf, madaal, fi gexisi macaashka trading kee.",
     start_setup: "Profile qabo",
     profile_setup: "Profile User",

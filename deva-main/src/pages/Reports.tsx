@@ -31,37 +31,37 @@ export function Reports() {
       // Temporarily expand the element so html2canvas sees the full height
       // without scroll clipping, then restore it after capture.
       const prevOverflow = el.style.overflow;
-      const prevHeight   = el.style.height;
-      el.style.overflow  = 'visible';
-      el.style.height    = 'auto';
+      const prevHeight = el.style.height;
+      el.style.overflow = 'visible';
+      el.style.height = 'auto';
 
       const canvas = await html2canvas(el, {
-        scale:           2,
-        useCORS:         true,
-        allowTaint:      true,
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
         backgroundColor: '#ffffff',
-        logging:         false,
-        scrollX:         0,
-        scrollY:         -window.scrollY,
-        width:           el.scrollWidth,
-        height:          el.scrollHeight,
-        windowWidth:     el.scrollWidth,
-        windowHeight:    el.scrollHeight,
+        logging: false,
+        scrollX: 0,
+        scrollY: -window.scrollY,
+        width: el.scrollWidth,
+        height: el.scrollHeight,
+        windowWidth: el.scrollWidth,
+        windowHeight: el.scrollHeight,
       });
 
       // Restore original styles
       el.style.overflow = prevOverflow;
-      el.style.height   = prevHeight;
+      el.style.height = prevHeight;
 
       const imgData = canvas.toDataURL('image/png');
-      const pdf     = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-      const pdfW    = pdf.internal.pageSize.getWidth();   // 210 mm
-      const pdfH    = pdf.internal.pageSize.getHeight();  // 297 mm
-      const imgH    = (canvas.height * pdfW) / canvas.width;
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const pdfW = pdf.internal.pageSize.getWidth();   // 210 mm
+      const pdfH = pdf.internal.pageSize.getHeight();  // 297 mm
+      const imgH = (canvas.height * pdfW) / canvas.width;
 
       // Paginate across A4 pages
       let heightLeft = imgH;
-      let position   = 0;
+      let position = 0;
 
       pdf.addImage(imgData, 'PNG', 0, position, pdfW, imgH);
       heightLeft -= pdfH;
@@ -144,10 +144,9 @@ export function Reports() {
                   <span className="font-semibold text-gray-700">{cause.cause}</span>
                   <div className="flex gap-4">
                     <span className="text-gray-500 text-sm">{cause.type}</span>
-                    <span className={`text-sm font-bold w-20 text-right ${
-                      cause.severity === 'High' ? 'text-red-500' :
-                      cause.severity === 'Medium' ? 'text-amber-500' : 'text-gray-400'
-                    }`}>
+                    <span className={`text-sm font-bold w-20 text-right ${cause.severity === 'High' ? 'text-red-500' :
+                        cause.severity === 'Medium' ? 'text-amber-500' : 'text-gray-400'
+                      }`}>
                       {cause.severity}
                     </span>
                   </div>

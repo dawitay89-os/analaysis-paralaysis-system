@@ -12,30 +12,30 @@ export function Welcome({ onStart }: { onStart: () => void }) {
         <div className="inline-flex items-center justify-center p-4 bg-indigo-600/10 rounded-full border border-indigo-500/20 mb-4">
           <Brain className="w-12 h-12 text-indigo-400" />
         </div>
-        
+
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-zinc-100 to-zinc-500">
           {t('app_title')}
         </h1>
-        
+
         <p className="text-lg text-zinc-400 leading-relaxed max-w-xl mx-auto">
           {t('welcome_text')}
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl text-left">
-        <Card 
+        <Card
           icon={<ActivitySquare className="w-6 h-6 text-emerald-400" />}
           title={t('welcome_title1')}
           desc={t('welcome_title1_desc')}
           onClick={onStart}
         />
-        <Card 
+        <Card
           icon={<Brain className="w-6 h-6 text-indigo-400" />}
           title={t('welcome_title2')}
           desc={t('welcome_title2_desc')}
           onClick={onStart}
         />
-        <Card 
+        <Card
           icon={<TrendingUp className="w-6 h-6 text-amber-400" />}
           title={t('welcome_title3')}
           desc={t('welcome_title3_desc')}
