@@ -4,7 +4,43 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 import { LayoutDashboard, FileText, Settings, Activity } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useStore } from '../store/useStore';
-import negadrasLogo from '../assets/negadras-logo.svg';
+
+function NegadrasLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sl" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#e8e8e8" />
+          <stop offset="40%" stopColor="#ffffff" />
+          <stop offset="70%" stopColor="#b0b8c8" />
+          <stop offset="100%" stopColor="#8892a0" />
+        </linearGradient>
+        <linearGradient id="st" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="50%" stopColor="#d0d8e8" />
+          <stop offset="100%" stopColor="#8892a0" />
+        </linearGradient>
+      </defs>
+      {/* Outer ring */}
+      <circle cx="100" cy="115" r="62" stroke="url(#sl)" strokeWidth="3.5" />
+      {/* Inner dashed tick ring */}
+      <circle cx="100" cy="115" r="54" stroke="url(#sl)" strokeWidth="1.2" strokeDasharray="2 8" strokeLinecap="round" />
+      {/* Top hanging loop */}
+      <circle cx="100" cy="47" r="7" stroke="url(#sl)" strokeWidth="3" />
+      <line x1="100" y1="53" x2="100" y2="54" stroke="url(#sl)" strokeWidth="3" strokeLinecap="round" />
+      {/* Chart zigzag */}
+      <polyline points="68,135 82,118 93,128 112,98" stroke="url(#sl)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* Arrow shaft */}
+      <line x1="112" y1="98" x2="136" y2="82" stroke="url(#sl)" strokeWidth="3.5" strokeLinecap="round" />
+      {/* Arrow head */}
+      <polyline points="122,78 136,82 132,95" stroke="url(#sl)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+      {/* NEGADRAS label */}
+      <text x="100" y="200" textAnchor="middle" fontFamily="'Helvetica Neue',Helvetica,Arial,sans-serif" fontSize="22" fontWeight="700" letterSpacing="6" fill="url(#st)">NEGADRAS</text>
+      {/* GROUP 6 label */}
+      <text x="100" y="216" textAnchor="middle" fontFamily="'Helvetica Neue',Helvetica,Arial,sans-serif" fontSize="9" fontWeight="400" letterSpacing="4" fill="url(#st)">GROUP 6</text>
+    </svg>
+  );
+}
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -28,7 +64,7 @@ export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
       {/* Sidebar Desktop / Navbar Mobile */}
       <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-zinc-800 bg-[#0c0c0e] flex flex-col">
         <div className="p-4 md:p-6 flex items-center gap-3">
-          <img src={negadrasLogo} alt="Negadras Logo" className="w-10 h-10 flex-shrink-0" />
+          <NegadrasLogo className="w-10 h-10 flex-shrink-0" />
           <span className="font-bold text-sm leading-tight hidden md:block">
             {t('app_title')}
           </span>

@@ -2,7 +2,35 @@ import React from 'react';
 import { useTranslation } from '../i18n/context';
 import { Button } from '../components/Button';
 import { ActivitySquare, TrendingUp, Brain } from 'lucide-react';
-import negadrasLogo from '../assets/negadras-logo.svg';
+
+function NegadrasLogo({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 200 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="wl" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#e8e8e8" />
+          <stop offset="40%" stopColor="#ffffff" />
+          <stop offset="70%" stopColor="#b0b8c8" />
+          <stop offset="100%" stopColor="#8892a0" />
+        </linearGradient>
+        <linearGradient id="wt" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="50%" stopColor="#d0d8e8" />
+          <stop offset="100%" stopColor="#8892a0" />
+        </linearGradient>
+      </defs>
+      <circle cx="100" cy="115" r="62" stroke="url(#wl)" strokeWidth="3.5" />
+      <circle cx="100" cy="115" r="54" stroke="url(#wl)" strokeWidth="1.2" strokeDasharray="2 8" strokeLinecap="round" />
+      <circle cx="100" cy="47" r="7" stroke="url(#wl)" strokeWidth="3" />
+      <line x1="100" y1="53" x2="100" y2="54" stroke="url(#wl)" strokeWidth="3" strokeLinecap="round" />
+      <polyline points="68,135 82,118 93,128 112,98" stroke="url(#wl)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+      <line x1="112" y1="98" x2="136" y2="82" stroke="url(#wl)" strokeWidth="3.5" strokeLinecap="round" />
+      <polyline points="122,78 136,82 132,95" stroke="url(#wl)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+      <text x="100" y="200" textAnchor="middle" fontFamily="'Helvetica Neue',Helvetica,Arial,sans-serif" fontSize="22" fontWeight="700" letterSpacing="6" fill="url(#wt)">NEGADRAS</text>
+      <text x="100" y="216" textAnchor="middle" fontFamily="'Helvetica Neue',Helvetica,Arial,sans-serif" fontSize="9" fontWeight="400" letterSpacing="4" fill="url(#wt)">GROUP 6</text>
+    </svg>
+  );
+}
 
 export function Welcome({ onStart }: { onStart: () => void }) {
   const { t } = useTranslation();
@@ -11,7 +39,7 @@ export function Welcome({ onStart }: { onStart: () => void }) {
     <div className="flex flex-col items-center justify-center min-h-[80vh] text-center space-y-12 animate-in fade-in zoom-in-95 duration-700">
       <div className="space-y-6 max-w-2xl">
         <div className="inline-flex items-center justify-center p-4 bg-zinc-800/40 rounded-full border border-zinc-700/40 mb-4">
-          <img src={negadrasLogo} alt="Negadras Logo" className="w-16 h-16" />
+          <NegadrasLogo className="w-16 h-16" />
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-zinc-100 to-zinc-500">
