@@ -14,7 +14,7 @@ export function Reports() {
   if (state.history.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full space-y-4">
-        <p className="text-zinc-400">{t('msg_complete_assessment')}</p>
+        <p className="text-theme-muted">{t('msg_complete_assessment')}</p>
       </div>
     );
   }
@@ -84,17 +84,17 @@ export function Reports() {
 
   return (
     <div className="space-y-6 animate-in fade-in pb-20">
-      <div className="flex justify-between items-center bg-[#121214] p-6 rounded-xl border border-zinc-800">
+      <div className="flex justify-between items-center bg-theme-card p-6 rounded-xl border border-theme-border">
         <div>
-          <h2 className="text-xl font-bold">{t('rep_title')}</h2>
-          <p className="text-zinc-400 text-sm mt-1">{t('rep_desc')}</p>
+          <h2 className="text-xl font-bold text-theme-text">{t('rep_title')}</h2>
+          <p className="text-theme-muted text-sm mt-1">{t('rep_desc')}</p>
         </div>
         <Button onClick={handleDownload} disabled={generating}>
           {generating ? t('btn_generating') : t('btn_download')}
         </Button>
       </div>
 
-      <div className="border border-zinc-800 rounded-xl bg-white text-black shadow-2xl relative overflow-x-auto">
+      <div className="border border-theme-border rounded-xl bg-white text-black shadow-2xl relative overflow-x-auto">
         <div ref={reportRef} className="p-12 w-[800px] mx-auto bg-white" style={{ minHeight: '1122px' }}>
 
           <header className="border-b-4 border-indigo-600 pb-6 mb-8">
@@ -145,7 +145,7 @@ export function Reports() {
                   <div className="flex gap-4">
                     <span className="text-gray-500 text-sm">{cause.type}</span>
                     <span className={`text-sm font-bold w-20 text-right ${cause.severity === 'High' ? 'text-red-500' :
-                        cause.severity === 'Medium' ? 'text-amber-500' : 'text-gray-400'
+                      cause.severity === 'Medium' ? 'text-amber-500' : 'text-gray-400'
                       }`}>
                       {cause.severity}
                     </span>

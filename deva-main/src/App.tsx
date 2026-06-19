@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { I18nProvider } from './i18n/context';
 import { useStore } from './store/useStore';
 import { Layout } from './components/Layout';
@@ -13,9 +13,15 @@ function AppContent() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'assessment' | 'reports' | 'profile'>('dashboard');
   const [showWelcome, setShowWelcome] = useState(!state.profile && state.history.length === 0);
 
+  // Apply theme to <html> element so CSS vars cascade everywhere
+  useEffect(() => {
+    const theme = state.theme ?? 'negadras-dark';
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [state.theme]);
+
   if (showWelcome) {
     return (
-      <div className="min-h-screen bg-[#09090b] text-zinc-100 p-4 md:p-8">
+      <div className="min-h-screen bg-theme-bg text-theme-text p-4 md:p-8">
         <Welcome onStart={() => {
           setShowWelcome(false);
           setActiveTab('profile');

@@ -1,3 +1,5 @@
+export type Theme = 'negadras-dark' | 'light' | 'cyberpunk' | 'amoled';
+
 export type ExperienceLevel = 'Beginner' | 'Intermediate' | 'Advanced';
 export type TradingStyle = 'Scalping' | 'Day Trading' | 'Swing Trading' | 'Position Trading';
 export type Market = 'Forex' | 'Crypto' | 'Stocks' | 'Indices' | 'Commodities';
@@ -38,7 +40,7 @@ export interface AssessmentResult {
   recommendations: Recommendation[];
 }
 
-export type Archetype = 
+export type Archetype =
   | 'Frozen Analyst'
   | 'Perfectionist Trader'
   | 'Reactive Chaser'

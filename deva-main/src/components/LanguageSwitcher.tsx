@@ -11,7 +11,7 @@ export function LanguageSwitcher() {
       <select
         value={language}
         onChange={(e) => setLanguage(e.target.value as Language)}
-        className="bg-zinc-800 border focus:ring-indigo-500 focus:border-indigo-500 border-zinc-700 text-sm rounded-md py-1 px-2 text-zinc-200 outline-none"
+        className="bg-theme-surface border focus:ring-2 focus:ring-theme-accent focus:border-theme-accent border-theme-border text-sm rounded-md py-1 px-2 text-theme-text outline-none transition-colors"
       >
         {LANGUAGES.map((lang) => (
           <option key={lang.code} value={lang.code}>

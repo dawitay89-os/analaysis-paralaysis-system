@@ -38,7 +38,7 @@ export function Welcome({ onStart }: { onStart: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] text-center space-y-12 animate-in fade-in zoom-in-95 duration-700">
       <div className="space-y-6 max-w-2xl">
-        <div className="inline-flex items-center justify-center p-4 bg-zinc-800/40 rounded-full border border-zinc-700/40 mb-4">
+        <div className="inline-flex items-center justify-center p-4 bg-theme-surface2 rounded-full border border-theme-border mb-4">
           <NegadrasLogo className="w-16 h-16" />
         </div>
 
@@ -46,7 +46,7 @@ export function Welcome({ onStart }: { onStart: () => void }) {
           {t('app_title')}
         </h1>
 
-        <p className="text-lg text-zinc-400 leading-relaxed max-w-xl mx-auto">
+        <p className="text-lg text-theme-muted leading-relaxed max-w-xl mx-auto">
           {t('welcome_text')}
         </p>
       </div>
@@ -84,17 +84,17 @@ export function Welcome({ onStart }: { onStart: () => void }) {
 function Card({ icon, title, desc, onClick }: { icon: React.ReactNode, title: string, desc: string, onClick?: () => void }) {
   return (
     <div
-      className="bg-[#121214] border border-zinc-800/50 p-6 rounded-2xl flex flex-col gap-3 cursor-pointer"
+      className="bg-theme-card border border-theme-border2 p-6 rounded-2xl flex flex-col gap-3 cursor-pointer hover:border-theme-border transition-colors duration-200"
       onClick={onClick}
       role="button"
       tabIndex={0}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick?.(); }}
     >
-      <div className="w-12 h-12 rounded-lg bg-zinc-900 flex items-center justify-center border border-zinc-800">
+      <div className="w-12 h-12 rounded-lg bg-theme-surface2 flex items-center justify-center border border-theme-border">
         {icon}
       </div>
-      <h3 className="font-bold text-lg text-zinc-200">{title}</h3>
-      <p className="text-zinc-500 text-sm leading-relaxed">{desc}</p>
+      <h3 className="font-bold text-lg text-theme-text">{title}</h3>
+      <p className="text-theme-muted text-sm leading-relaxed">{desc}</p>
     </div>
   )
 }

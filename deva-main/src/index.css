@@ -1,9 +1,161 @@
 @import "tailwindcss";
 
-@theme {
-  --color-zinc-950: #09090b;
+/* ─── Base theme token fallback (negadras-dark) ─────────────────────────── */
+:root {
+  --bg: #09090b;
+  --surface: #0c0c0e;
+  --surface-2: #121214;
+  --border: #27272a;
+  --border-2: rgba(39, 39, 42, .5);
+  --text: #f4f4f5;
+  --text-muted: #71717a;
+  --active: #27272a;
+  --hover: rgba(39, 39, 42, .5);
+  --accent: #6366f1;
+  --accent-bg: rgba(99, 102, 241, .1);
+  --accent-text: #a5b4fc;
+  --card-bg: #121214;
+}
+
+/* ─── Negadras Dark (default) ────────────────────────────────────────────── */
+[data-theme="negadras-dark"] {
+  --bg: #09090b;
+  --surface: #0c0c0e;
+  --surface-2: #121214;
+  --border: #27272a;
+  --border-2: rgba(39, 39, 42, .5);
+  --text: #f4f4f5;
+  --text-muted: #71717a;
+  --active: #27272a;
+  --hover: rgba(39, 39, 42, .5);
+  --accent: #6366f1;
+  --accent-bg: rgba(99, 102, 241, .1);
+  --accent-text: #a5b4fc;
+  --card-bg: #121214;
+}
+
+/* ─── Light Mode ─────────────────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --surface: #f1f5f9;
+  --surface-2: #ffffff;
+  --border: #e2e8f0;
+  --border-2: rgba(226, 232, 240, .7);
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --active: #e2e8f0;
+  --hover: rgba(226, 232, 240, .6);
+  --accent: #4f46e5;
+  --accent-bg: rgba(79, 70, 229, .08);
+  --accent-text: #4f46e5;
+  --card-bg: #ffffff;
+}
+
+/* ─── Cyberpunk / Matrix ─────────────────────────────────────────────────── */
+[data-theme="cyberpunk"] {
+  --bg: #010b01;
+  --surface: #021002;
+  --surface-2: #031503;
+  --border: #0d3b0d;
+  --border-2: rgba(13, 59, 13, .6);
+  --text: #00ff41;
+  --text-muted: #00a02a;
+  --active: #0d3b0d;
+  --hover: rgba(13, 59, 13, .5);
+  --accent: #00ff41;
+  --accent-bg: rgba(0, 255, 65, .08);
+  --accent-text: #00ff41;
+  --card-bg: #031503;
+}
+
+/* ─── AMOLED Black ───────────────────────────────────────────────────────── */
+[data-theme="amoled"] {
+  --bg: #000000;
+  --surface: #000000;
+  --surface-2: #0a0a0a;
+  --border: #1a1a1a;
+  --border-2: rgba(26, 26, 26, .6);
+  --text: #ffffff;
+  --text-muted: #6b6b6b;
+  --active: #1a1a1a;
+  --hover: rgba(26, 26, 26, .6);
+  --accent: #d946ef;
+  --accent-bg: rgba(217, 70, 239, .08);
+  --accent-text: #f0abfc;
+  --card-bg: #0a0a0a;
+}
+
+/* ─── Tailwind utility shims using CSS variables ─────────────────────────── */
+@layer utilities {
+  .bg-theme-bg {
+    background-color: var(--bg);
+  }
+
+  .bg-theme-surface {
+    background-color: var(--surface);
+  }
+
+  .bg-theme-surface2 {
+    background-color: var(--surface-2);
+  }
+
+  .bg-theme-card {
+    background-color: var(--card-bg);
+  }
+
+  .bg-theme-active {
+    background-color: var(--active);
+  }
+
+  .bg-theme-hover {
+    background-color: var(--hover);
+  }
+
+  .bg-theme-accent {
+    background-color: var(--accent-bg);
+  }
+
+  .text-theme-text {
+    color: var(--text);
+  }
+
+  .text-theme-muted {
+    color: var(--text-muted);
+  }
+
+  .text-theme-accent {
+    color: var(--accent-text);
+  }
+
+  .border-theme-border {
+    border-color: var(--border);
+  }
+
+  .border-theme-border2 {
+    border-color: var(--border-2);
+  }
+
+  .border-theme-accent {
+    border-color: var(--accent);
+  }
+
+  /* Cyberpunk scanline flicker overlay (opt-in) */
+  [data-theme="cyberpunk"] .scanline::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 65, .03) 2px,
+        rgba(0, 255, 65, .03) 4px);
+    pointer-events: none;
+    z-index: 9999;
+  }
 }
 
 body {
-  @apply bg-[#09090b] text-zinc-100;
+  background-color: var(--bg);
+  color: var(--text);
+  @apply font-sans;
 }

@@ -22,4 +22,4 @@ Trader Psychology Intelligence System that helps traders identify Analysis Paral
 
 npm install
 
-npm run dev
+npm run dev 

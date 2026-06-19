@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTranslation } from '../i18n/context';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { ThemeSwitcher } from './ThemeSwitcher';
 import { LayoutDashboard, FileText, Settings, Activity } from 'lucide-react';
 import { cn } from '../lib/utils';
-import { useStore } from '../store/useStore';
 
 function NegadrasLogo({ className }: { className?: string }) {
   return (
@@ -21,22 +21,14 @@ function NegadrasLogo({ className }: { className?: string }) {
           <stop offset="100%" stopColor="#8892a0" />
         </linearGradient>
       </defs>
-      {/* Outer ring */}
       <circle cx="100" cy="115" r="62" stroke="url(#sl)" strokeWidth="3.5" />
-      {/* Inner dashed tick ring */}
       <circle cx="100" cy="115" r="54" stroke="url(#sl)" strokeWidth="1.2" strokeDasharray="2 8" strokeLinecap="round" />
-      {/* Top hanging loop */}
       <circle cx="100" cy="47" r="7" stroke="url(#sl)" strokeWidth="3" />
       <line x1="100" y1="53" x2="100" y2="54" stroke="url(#sl)" strokeWidth="3" strokeLinecap="round" />
-      {/* Chart zigzag */}
       <polyline points="68,135 82,118 93,128 112,98" stroke="url(#sl)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Arrow shaft */}
       <line x1="112" y1="98" x2="136" y2="82" stroke="url(#sl)" strokeWidth="3.5" strokeLinecap="round" />
-      {/* Arrow head */}
       <polyline points="122,78 136,82 132,95" stroke="url(#sl)" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
-      {/* NEGADRAS label */}
       <text x="100" y="200" textAnchor="middle" fontFamily="'Helvetica Neue',Helvetica,Arial,sans-serif" fontSize="22" fontWeight="700" letterSpacing="6" fill="url(#st)">NEGADRAS</text>
-      {/* GROUP 6 label */}
       <text x="100" y="216" textAnchor="middle" fontFamily="'Helvetica Neue',Helvetica,Arial,sans-serif" fontSize="9" fontWeight="400" letterSpacing="4" fill="url(#st)">GROUP 6</text>
     </svg>
   );
@@ -50,7 +42,6 @@ interface LayoutProps {
 
 export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
   const { t } = useTranslation();
-  const { state } = useStore();
 
   const navItems = [
     { id: 'dashboard', label: t('dashboard'), icon: LayoutDashboard },
@@ -60,12 +51,12 @@ export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
   ] as const;
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen bg-theme-bg text-theme-text flex flex-col md:flex-row font-sans transition-colors duration-300">
       {/* Sidebar Desktop / Navbar Mobile */}
-      <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-zinc-800 bg-[#0c0c0e] flex flex-col">
+      <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-theme-border bg-theme-surface flex flex-col transition-colors duration-300">
         <div className="p-4 md:p-6 flex items-center gap-3">
           <NegadrasLogo className="w-10 h-10 flex-shrink-0" />
-          <span className="font-bold text-sm leading-tight hidden md:block">
+          <span className="font-bold text-sm leading-tight text-theme-text hidden md:block">
             {t('app_title')}
           </span>
         </div>
@@ -80,25 +71,29 @@ export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors w-full",
                   activeTab === item.id
-                    ? "bg-zinc-800 text-indigo-400"
-                    : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+                    ? "bg-theme-active text-theme-accent"
+                    : "text-theme-muted hover:text-theme-text hover:bg-theme-hover"
                 )}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
                 <span className="hidden md:inline">{item.label}</span>
               </button>
-            )
+            );
           })}
         </nav>
 
-        <div className="p-4 border-t border-zinc-800 hidden md:block">
+        {/* Desktop footer: language + theme */}
+        <div className="p-4 border-t border-theme-border hidden md:flex flex-col gap-3">
           <LanguageSwitcher />
+          <ThemeSwitcher />
         </div>
       </aside>
 
       <main className="flex-1 flex flex-col h-[calc(100vh-65px)] md:h-screen overflow-y-auto relative">
-        <div className="md:hidden absolute top-4 right-4 z-50">
+        {/* Mobile top-right controls */}
+        <div className="md:hidden absolute top-3 right-3 z-50 flex items-center gap-2">
           <LanguageSwitcher />
+          <ThemeSwitcher />
         </div>
         <div className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
           {children}
