@@ -26,61 +26,58 @@ export function Reports() {
     setGenerating(true);
 
     try {
-      // Clone the report node and place it off-screen so html2canvas can
-      // capture the full content regardless of overflow/scroll clipping.
       const original = reportRef.current;
+
+      // Clone the report node and render it off-screen at full natural size
+      // so html2canvas captures every pixel regardless of scroll position.
       const clone = original.cloneNode(true) as HTMLElement;
-
-      // Force the clone to be fully visible and unclipped
       Object.assign(clone.style, {
-        position: 'fixed',
-        top: '0',
-        left: '-9999px',
-        width: original.scrollWidth + 'px',
+        position:   'fixed',
+        top:        '0',
+        left:       '-9999px',
+        width:      '800px',         // match the fixed inner width
         background: '#ffffff',
-        zIndex: '99999',
+        color:      '#000000',
+        zIndex:     '99999',
         visibility: 'visible',
-        overflow: 'visible',
+        overflow:   'visible',
       });
-
       document.body.appendChild(clone);
 
       const canvas = await html2canvas(clone, {
-        scale: 2,
-        useCORS: true,
+        scale:        3,             // high-DPI — crisp text in the PDF
+        useCORS:      true,
         backgroundColor: '#ffffff',
-        logging: false,
-        width: clone.scrollWidth,
-        height: clone.scrollHeight,
-        windowWidth: clone.scrollWidth,
+        logging:      false,
+        width:        clone.scrollWidth,
+        height:       clone.scrollHeight,
+        windowWidth:  clone.scrollWidth,
         windowHeight: clone.scrollHeight,
       });
 
       document.body.removeChild(clone);
 
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgData  = canvas.toDataURL('image/png');
+      const pdf      = new jsPDF('p', 'mm', 'a4');
+      const pdfW     = pdf.internal.pageSize.getWidth();   // 210 mm
+      const pdfH     = pdf.internal.pageSize.getHeight();  // 297 mm
+      const imgH     = (canvas.height * pdfW) / canvas.width;
 
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = pdfWidth;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      // Paginate: slice the image across as many A4 pages as needed
+      let heightLeft = imgH;
+      let position   = 0;
 
-      // If the content is taller than one A4 page, split across multiple pages
-      let yOffset = 0;
-      let heightLeft = imgHeight;
-
-      pdf.addImage(imgData, 'PNG', 0, yOffset, imgWidth, imgHeight);
-      heightLeft -= pdfHeight;
+      pdf.addImage(imgData, 'PNG', 0, position, pdfW, imgH);
+      heightLeft -= pdfH;
 
       while (heightLeft > 0) {
-        yOffset -= pdfHeight;
+        position -= pdfH;
         pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, yOffset, imgWidth, imgHeight);
-        heightLeft -= pdfHeight;
+        pdf.addImage(imgData, 'PNG', 0, position, pdfW, imgH);
+        heightLeft -= pdfH;
       }
 
-      pdf.save('Trading_Psychology_Report.pdf');
+      pdf.save('Trader_Psychological_Intelligence_Report.pdf');
     } catch (err) {
       console.error('PDF generation failed:', err);
       alert('PDF generation failed. Please try again.');
