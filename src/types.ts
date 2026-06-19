@@ -1,4 +1,4 @@
-export type Theme = 'negadras-dark' | 'light' | 'cyberpunk' | 'amoled';
+export type Theme = 'dark' | 'light';
 
 export type ExperienceLevel = 'Beginner' | 'Intermediate' | 'Advanced';
 export type TradingStyle = 'Scalping' | 'Day Trading' | 'Swing Trading' | 'Position Trading';

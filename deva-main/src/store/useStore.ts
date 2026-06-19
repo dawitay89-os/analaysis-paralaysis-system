@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { UserProfile, AssessmentResult, Theme } from '../types';
 
 interface StoreState {
@@ -8,53 +8,71 @@ interface StoreState {
   theme: Theme;
 }
 
-export function useStore() {
-  const [state, setState] = useState<StoreState>(() => {
-    const saved = localStorage.getItem('trader_psych_store');
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      return { theme: 'negadras-dark', ...parsed };
-    }
-    return { profile: null, history: [], language: 'en', theme: 'negadras-dark' };
-  });
+const DEFAULT_STATE: StoreState = {
+  profile: null,
+  history: [],
+  language: 'en',
+  theme: 'dark',
+};
 
-  const getSyncState = (): StoreState => {
+function loadState(): StoreState {
+  try {
     const saved = localStorage.getItem('trader_psych_store');
     if (saved) {
       const parsed = JSON.parse(saved);
-      return { theme: 'negadras-dark', ...parsed };
+      // Migrate old theme values to new 'dark' | 'light'
+      const raw = parsed.theme;
+      const theme: Theme = raw === 'light' ? 'light' : 'dark';
+      return { ...DEFAULT_STATE, ...parsed, theme };
     }
-    return { profile: null, history: [], language: 'en', theme: 'negadras-dark' };
-  };
+  } catch {/* ignore */ }
+  return { ...DEFAULT_STATE };
+}
+
+function saveState(state: StoreState) {
+  localStorage.setItem('trader_psych_store', JSON.stringify(state));
+  // Immediately apply theme attribute so there's no flash
+  document.documentElement.setAttribute('data-theme', state.theme);
+}
+
+export function useStore() {
+  const [state, setState] = useState<StoreState>(loadState);
 
   const updateProfile = (profile: UserProfile) => {
-    const next = { ...getSyncState(), profile };
-    localStorage.setItem('trader_psych_store', JSON.stringify(next));
-    setState(next);
+    setState(prev => {
+      const next = { ...prev, profile };
+      saveState(next);
+      return next;
+    });
   };
 
   const addAssessment = (result: AssessmentResult) => {
-    const currentState = getSyncState();
-    const next = { ...currentState, history: [...currentState.history, result] };
-    localStorage.setItem('trader_psych_store', JSON.stringify(next));
-    setState(next);
+    setState(prev => {
+      const next = { ...prev, history: [...prev.history, result] };
+      saveState(next);
+      return next;
+    });
   };
 
   const setLanguage = (language: string) => {
-    const next = { ...getSyncState(), language };
-    localStorage.setItem('trader_psych_store', JSON.stringify(next));
-    setState(next);
+    setState(prev => {
+      const next = { ...prev, language };
+      saveState(next);
+      return next;
+    });
   };
 
   const setTheme = (theme: Theme) => {
-    const next = { ...getSyncState(), theme };
-    localStorage.setItem('trader_psych_store', JSON.stringify(next));
-    setState(next);
+    setState(prev => {
+      const next = { ...prev, theme };
+      saveState(next);
+      return next;
+    });
   };
 
   const reset = () => {
-    const next = { profile: null, history: [], language: 'en', theme: 'negadras-dark' as Theme };
-    localStorage.setItem('trader_psych_store', JSON.stringify(next));
+    const next = { ...DEFAULT_STATE };
+    saveState(next);
     setState(next);
   };
 
