@@ -27,16 +27,19 @@ export function Welcome({ onStart }: { onStart: () => void }) {
           icon={<ActivitySquare className="w-6 h-6 text-emerald-400" />}
           title={t('welcome_title1')}
           desc={t('welcome_title1_desc')}
+          onClick={onStart}
         />
         <Card 
           icon={<Brain className="w-6 h-6 text-indigo-400" />}
           title={t('welcome_title2')}
           desc={t('welcome_title2_desc')}
+          onClick={onStart}
         />
         <Card 
           icon={<TrendingUp className="w-6 h-6 text-amber-400" />}
           title={t('welcome_title3')}
           desc={t('welcome_title3_desc')}
+          onClick={onStart}
         />
       </div>
 
@@ -49,9 +52,15 @@ export function Welcome({ onStart }: { onStart: () => void }) {
   );
 }
 
-function Card({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+function Card({ icon, title, desc, onClick }: { icon: React.ReactNode, title: string, desc: string, onClick?: () => void }) {
   return (
-    <div className="bg-[#121214] border border-zinc-800/50 p-6 rounded-2xl flex flex-col gap-3">
+    <div
+      className="bg-[#121214] border border-zinc-800/50 p-6 rounded-2xl flex flex-col gap-3 cursor-pointer"
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onClick?.(); }}
+    >
       <div className="w-12 h-12 rounded-lg bg-zinc-900 flex items-center justify-center border border-zinc-800">
         {icon}
       </div>
