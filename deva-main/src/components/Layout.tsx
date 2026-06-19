@@ -1,9 +1,10 @@
 import React from 'react';
 import { useTranslation } from '../i18n/context';
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { Brain, LayoutDashboard, FileText, Settings, Activity } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, Activity } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useStore } from '../store/useStore';
+import negadrasLogo from '../assets/negadras-logo.svg';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -27,9 +28,7 @@ export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
       {/* Sidebar Desktop / Navbar Mobile */}
       <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-zinc-800 bg-[#0c0c0e] flex flex-col">
         <div className="p-4 md:p-6 flex items-center gap-3">
-          <div className="bg-indigo-600/20 p-2 rounded-lg text-indigo-400">
-            <Brain className="w-6 h-6" />
-          </div>
+          <img src={negadrasLogo} alt="Negadras Logo" className="w-10 h-10 flex-shrink-0" />
           <span className="font-bold text-sm leading-tight hidden md:block">
             {t('app_title')}
           </span>
@@ -44,8 +43,8 @@ export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
                 onClick={() => onNavigate(item.id)}
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors w-full",
-                  activeTab === item.id 
-                    ? "bg-zinc-800 text-indigo-400" 
+                  activeTab === item.id
+                    ? "bg-zinc-800 text-indigo-400"
                     : "text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
                 )}
               >
@@ -63,7 +62,7 @@ export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
 
       <main className="flex-1 flex flex-col h-[calc(100vh-65px)] md:h-screen overflow-y-auto relative">
         <div className="md:hidden absolute top-4 right-4 z-50">
-           <LanguageSwitcher />
+          <LanguageSwitcher />
         </div>
         <div className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
           {children}

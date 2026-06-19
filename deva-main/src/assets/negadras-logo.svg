@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" fill="none">
+  <!-- Compass outer ring -->
+  <circle cx="100" cy="115" r="62" stroke="url(#silver)" stroke-width="3.5" fill="none"/>
+  <!-- Compass inner tick ring -->
+  <circle cx="100" cy="115" r="54" stroke="url(#silver)" stroke-width="1.2" fill="none" stroke-dasharray="2 8" stroke-linecap="round"/>
+
+  <!-- Top hanging loop -->
+  <circle cx="100" cy="47" r="7" stroke="url(#silver)" stroke-width="3" fill="none"/>
+  <line x1="100" y1="54" x2="100" y2="53" stroke="url(#silver)" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Trending chart line inside compass -->
+  <!-- Bottom-left to peak zigzag -->
+  <polyline
+    points="68,135  82,118  93,128  112,98"
+    stroke="url(#silver)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Arrow head extending up-right -->
+  <line x1="112" y1="98" x2="136" y2="82" stroke="url(#silver)" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Arrow tip -->
+  <polyline points="122,78 136,82 132,95" stroke="url(#silver)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- NEGADRAS text -->
+  <text x="100" y="200" text-anchor="middle"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-size="22" font-weight="700" letter-spacing="6"
+    fill="url(#silverText)">NEGADRAS</text>
+
+  <!-- GROUP 6 text -->
+  <text x="100" y="216" text-anchor="middle"
+    font-family="'Helvetica Neue', Helvetica, Arial, sans-serif"
+    font-size="9" font-weight="400" letter-spacing="4"
+    fill="url(#silverText)">GROUP 6</text>
+
+  <defs>
+    <linearGradient id="silver" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#e8e8e8"/>
+      <stop offset="40%"  stop-color="#ffffff"/>
+      <stop offset="70%"  stop-color="#b0b8c8"/>
+      <stop offset="100%" stop-color="#8892a0"/>
+    </linearGradient>
+    <linearGradient id="silverText" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#ffffff"/>
+      <stop offset="50%"  stop-color="#d0d8e8"/>
+      <stop offset="100%" stop-color="#8892a0"/>
+    </linearGradient>
+  </defs>
+</svg>

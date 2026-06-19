@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from '../i18n/context';
 import { Button } from '../components/Button';
-import { Brain, ActivitySquare, TrendingUp } from 'lucide-react';
+import { ActivitySquare, TrendingUp, Brain } from 'lucide-react';
+import negadrasLogo from '../assets/negadras-logo.svg';
 
 export function Welcome({ onStart }: { onStart: () => void }) {
   const { t } = useTranslation();
@@ -9,8 +10,8 @@ export function Welcome({ onStart }: { onStart: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] text-center space-y-12 animate-in fade-in zoom-in-95 duration-700">
       <div className="space-y-6 max-w-2xl">
-        <div className="inline-flex items-center justify-center p-4 bg-indigo-600/10 rounded-full border border-indigo-500/20 mb-4">
-          <Brain className="w-12 h-12 text-indigo-400" />
+        <div className="inline-flex items-center justify-center p-4 bg-zinc-800/40 rounded-full border border-zinc-700/40 mb-4">
+          <img src={negadrasLogo} alt="Negadras Logo" className="w-16 h-16" />
         </div>
 
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-zinc-100 to-zinc-500">
