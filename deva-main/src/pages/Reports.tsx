@@ -26,44 +26,40 @@ export function Reports() {
     setGenerating(true);
 
     try {
-      const original = reportRef.current;
+      const el = reportRef.current;
 
-      // Clone the report node and render it off-screen at full natural size
-      // so html2canvas captures every pixel regardless of scroll position.
-      const clone = original.cloneNode(true) as HTMLElement;
-      Object.assign(clone.style, {
-        position:   'fixed',
-        top:        '0',
-        left:       '-9999px',
-        width:      '800px',         // match the fixed inner width
-        background: '#ffffff',
-        color:      '#000000',
-        zIndex:     '99999',
-        visibility: 'visible',
-        overflow:   'visible',
-      });
-      document.body.appendChild(clone);
+      // Temporarily expand the element so html2canvas sees the full height
+      // without scroll clipping, then restore it after capture.
+      const prevOverflow = el.style.overflow;
+      const prevHeight   = el.style.height;
+      el.style.overflow  = 'visible';
+      el.style.height    = 'auto';
 
-      const canvas = await html2canvas(clone, {
-        scale:        3,             // high-DPI — crisp text in the PDF
-        useCORS:      true,
+      const canvas = await html2canvas(el, {
+        scale:           2,
+        useCORS:         true,
+        allowTaint:      true,
         backgroundColor: '#ffffff',
-        logging:      false,
-        width:        clone.scrollWidth,
-        height:       clone.scrollHeight,
-        windowWidth:  clone.scrollWidth,
-        windowHeight: clone.scrollHeight,
+        logging:         false,
+        scrollX:         0,
+        scrollY:         -window.scrollY,
+        width:           el.scrollWidth,
+        height:          el.scrollHeight,
+        windowWidth:     el.scrollWidth,
+        windowHeight:    el.scrollHeight,
       });
 
-      document.body.removeChild(clone);
+      // Restore original styles
+      el.style.overflow = prevOverflow;
+      el.style.height   = prevHeight;
 
-      const imgData  = canvas.toDataURL('image/png');
-      const pdf      = new jsPDF('p', 'mm', 'a4');
-      const pdfW     = pdf.internal.pageSize.getWidth();   // 210 mm
-      const pdfH     = pdf.internal.pageSize.getHeight();  // 297 mm
-      const imgH     = (canvas.height * pdfW) / canvas.width;
+      const imgData = canvas.toDataURL('image/png');
+      const pdf     = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const pdfW    = pdf.internal.pageSize.getWidth();   // 210 mm
+      const pdfH    = pdf.internal.pageSize.getHeight();  // 297 mm
+      const imgH    = (canvas.height * pdfW) / canvas.width;
 
-      // Paginate: slice the image across as many A4 pages as needed
+      // Paginate across A4 pages
       let heightLeft = imgH;
       let position   = 0;
 
