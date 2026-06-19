@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from '../i18n/context';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ThemeSwitcher } from './ThemeSwitcher';
-import { LayoutDashboard, FileText, Settings, Activity } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, Activity, Palette } from 'lucide-react';
 import { cn } from '../lib/utils';
 
 function NegadrasLogo({ className }: { className?: string }) {
@@ -52,16 +52,30 @@ export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
 
   return (
     <div className="min-h-screen bg-theme-bg text-theme-text flex flex-col md:flex-row font-sans transition-colors duration-300">
-      {/* Sidebar Desktop / Navbar Mobile */}
-      <aside className="w-full md:w-64 border-b md:border-b-0 md:border-r border-theme-border bg-theme-surface flex flex-col transition-colors duration-300">
-        <div className="p-4 md:p-6 flex items-center gap-3">
+
+      {/* ── Desktop Sidebar ──────────────────────────────────────────── */}
+      <aside className="hidden md:flex w-64 border-r border-theme-border bg-theme-surface flex-col transition-colors duration-300">
+
+        {/* Brand */}
+        <div className="p-6 flex items-center gap-3 border-b border-theme-border">
           <NegadrasLogo className="w-10 h-10 flex-shrink-0" />
-          <span className="font-bold text-sm leading-tight text-theme-text hidden md:block">
-            {t('app_title')}
-          </span>
+          <span className="font-bold text-sm leading-tight text-theme-text">{t('app_title')}</span>
         </div>
 
-        <nav className="flex-1 overflow-y-auto w-full md:w-auto px-2 md:px-4 flex flex-row md:flex-col gap-1 py-3 md:py-0">
+        {/* ── Theme Switcher — top of sidebar, vertical ── */}
+        <div className="px-4 pt-4 pb-2">
+          <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-theme-muted mb-2 px-1">
+            <Palette className="w-3 h-3" />
+            Theme
+          </p>
+          <ThemeSwitcher />
+        </div>
+
+        {/* Divider */}
+        <div className="mx-4 border-t border-theme-border" />
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -69,36 +83,117 @@ export function Layout({ children, activeTab, onNavigate }: LayoutProps) {
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
                 className={cn(
-                  "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors w-full",
+                  'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors w-full text-left',
                   activeTab === item.id
-                    ? "bg-theme-active text-theme-accent"
-                    : "text-theme-muted hover:text-theme-text hover:bg-theme-hover"
+                    ? 'bg-theme-active text-theme-accent'
+                    : 'text-theme-muted hover:text-theme-text hover:bg-theme-hover'
                 )}
               >
                 <Icon className="w-5 h-5 flex-shrink-0" />
-                <span className="hidden md:inline">{item.label}</span>
+                <span>{item.label}</span>
               </button>
             );
           })}
         </nav>
 
-        {/* Desktop footer: language + theme */}
-        <div className="p-4 border-t border-theme-border hidden md:flex flex-col gap-3">
+        {/* Language switcher at the bottom */}
+        <div className="p-4 border-t border-theme-border">
           <LanguageSwitcher />
-          <ThemeSwitcher />
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col h-[calc(100vh-65px)] md:h-screen overflow-y-auto relative">
-        {/* Mobile top-right controls */}
-        <div className="md:hidden absolute top-3 right-3 z-50 flex items-center gap-2">
+      {/* ── Mobile layout ────────────────────────────────────────────── */}
+      <div className="md:hidden flex flex-col min-h-screen">
+
+        {/* Mobile top bar: logo + language */}
+        <header className="flex items-center justify-between px-4 py-3 border-b border-theme-border bg-theme-surface">
+          <div className="flex items-center gap-2">
+            <NegadrasLogo className="w-8 h-8" />
+            <span className="font-bold text-sm text-theme-text">{t('app_title')}</span>
+          </div>
           <LanguageSwitcher />
-          <ThemeSwitcher />
+        </header>
+
+        {/* Mobile theme switcher — full-width horizontal row */}
+        <div className="px-3 py-2 border-b border-theme-border bg-theme-surface">
+          <MobileThemeSwitcher />
         </div>
-        <div className="flex-1 p-4 md:p-8 max-w-7xl mx-auto w-full">
+
+        {/* Mobile nav tabs */}
+        <nav className="flex border-b border-theme-border bg-theme-surface px-2 gap-1 py-2">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <button
+                key={item.id}
+                onClick={() => onNavigate(item.id)}
+                className={cn(
+                  'flex-1 flex flex-col items-center gap-1 py-2 px-1 rounded-md text-xs font-medium transition-colors',
+                  activeTab === item.id
+                    ? 'bg-theme-active text-theme-accent'
+                    : 'text-theme-muted hover:text-theme-text hover:bg-theme-hover'
+                )}
+              >
+                <Icon className="w-5 h-5" />
+                <span className="truncate text-[10px]">{item.label}</span>
+              </button>
+            );
+          })}
+        </nav>
+
+        {/* Mobile content */}
+        <main className="flex-1 overflow-y-auto">
+          <div className="p-4 max-w-7xl mx-auto w-full">
+            {children}
+          </div>
+        </main>
+      </div>
+
+      {/* ── Desktop main content ─────────────────────────────────────── */}
+      <main className="hidden md:flex flex-1 flex-col h-screen overflow-y-auto">
+        <div className="flex-1 p-8 max-w-7xl mx-auto w-full">
           {children}
         </div>
       </main>
+
     </div>
   );
 }
+
+// Compact horizontal theme switcher for mobile — shows dot + label
+function MobileThemeSwitcher() {
+  const { state, setTheme } = useStore();
+  const current = state.theme ?? 'negadras-dark';
+
+  const THEMES: { id: import('../types').Theme; label: string; dot: string }[] = [
+    { id: 'negadras-dark', label: 'Dark', dot: 'bg-indigo-500' },
+    { id: 'light', label: 'Light', dot: 'bg-amber-400' },
+    { id: 'cyberpunk', label: 'Cyberpunk', dot: 'bg-green-400' },
+    { id: 'amoled', label: 'AMOLED', dot: 'bg-fuchsia-500' },
+  ];
+
+  return (
+    <div className="flex items-center gap-1 w-full">
+      {THEMES.map(({ id, label, dot }) => (
+        <button
+          key={id}
+          onClick={() => setTheme(id)}
+          aria-pressed={current === id}
+          aria-label={`Switch to ${label} theme`}
+          className={cn(
+            'flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md text-xs font-medium transition-all duration-200',
+            current === id
+              ? 'bg-theme-active text-theme-text'
+              : 'text-theme-muted hover:bg-theme-hover'
+          )}
+        >
+          <span className={cn('w-2 h-2 rounded-full flex-shrink-0', dot, current === id ? 'opacity-100' : 'opacity-40')} />
+          <span>{label}</span>
+        </button>
+      ))}
+    </div>
+  );
+}
+
+// Import useStore here so MobileThemeSwitcher can use it
+import { useStore } from '../store/useStore';
