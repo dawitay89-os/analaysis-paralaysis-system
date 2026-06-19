@@ -1,0 +1,62 @@
+import React from 'react';
+import { useTranslation } from '../i18n/context';
+import { Button } from '../components/Button';
+import { Brain, ActivitySquare, TrendingUp } from 'lucide-react';
+
+export function Welcome({ onStart }: { onStart: () => void }) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-[80vh] text-center space-y-12 animate-in fade-in zoom-in-95 duration-700">
+      <div className="space-y-6 max-w-2xl">
+        <div className="inline-flex items-center justify-center p-4 bg-indigo-600/10 rounded-full border border-indigo-500/20 mb-4">
+          <Brain className="w-12 h-12 text-indigo-400" />
+        </div>
+        
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-zinc-100 to-zinc-500">
+          {t('app_title')}
+        </h1>
+        
+        <p className="text-lg text-zinc-400 leading-relaxed max-w-xl mx-auto">
+          {t('welcome_text')}
+        </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl text-left">
+        <Card 
+          icon={<ActivitySquare className="w-6 h-6 text-emerald-400" />}
+          title="Diagnostic Engine"
+          desc="Detect hidden analytical friction and behavioral leaks."
+        />
+        <Card 
+          icon={<Brain className="w-6 h-6 text-indigo-400" />}
+          title="Root Cause Analysis"
+          desc="Identify the core psychological fears driving poor execution."
+        />
+        <Card 
+          icon={<TrendingUp className="w-6 h-6 text-amber-400" />}
+          title="Actionable Coaching"
+          desc="Receive tactical daily missions based on mathematical profiling."
+        />
+      </div>
+
+      <div className="pt-8 w-full max-w-sm mx-auto">
+        <Button size="lg" className="w-full text-lg shadow-lg shadow-indigo-600/20" onClick={onStart}>
+          {t('start_setup')}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function Card({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+  return (
+    <div className="bg-[#121214] border border-zinc-800/50 p-6 rounded-2xl flex flex-col gap-3">
+      <div className="w-12 h-12 rounded-lg bg-zinc-900 flex items-center justify-center border border-zinc-800">
+        {icon}
+      </div>
+      <h3 className="font-bold text-lg text-zinc-200">{title}</h3>
+      <p className="text-zinc-500 text-sm leading-relaxed">{desc}</p>
+    </div>
+  )
+}
