@@ -36,7 +36,7 @@ export function Assessment({ onComplete }: { onComplete: () => void }) {
     if (currentSection < SECTIONS.length - 1) {
       setCurrentSection(c => c + 1);
     } else {
-      const result = processAssessment(answers);
+      const result = processAssessment(answers, state.profile ?? undefined);
       addAssessment(result);
       onComplete();
     }

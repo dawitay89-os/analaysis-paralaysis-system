@@ -19,12 +19,12 @@ export interface UserProfile {
 }
 
 export interface AssessmentAnswers {
-  analysisParalysis: number[]; // 7 questions
+  analysisParalysis: number[];     // 7 questions
   confirmationAddiction: number[]; // 5 questions
-  fearAnalysis: number[]; // 5 questions
-  executionFriction: number[]; // 5 questions
-  fomo: number[]; // 6 questions
-  confidence: number[]; // 4 questions
+  fearAnalysis: number[];          // 5 questions
+  executionFriction: number[];     // 5 questions
+  fomo: number[];                  // 6 questions
+  confidence: number[];            // 4 questions
 }
 
 export interface AssessmentResult {
@@ -34,10 +34,14 @@ export interface AssessmentResult {
     fomo: number;
     confidence: number;
     discipline: number;
+    fear: number;
+    friction: number;
+    addictionScore: number;
   };
   archetype: Archetype;
   rootCauses: RootCause[];
   recommendations: Recommendation[];
+  educationalConcepts?: import('./lib/engine').KnowledgeConcept[];
 }
 
 export type Archetype =
